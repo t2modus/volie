@@ -4,6 +4,8 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'volie/version'
 
+# There's not a lot I can do to shorten this block so rubocop's gonna have to deal
+# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |spec|
   spec.name          = 'volie'
   spec.version       = Volie::VERSION
@@ -37,3 +39,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'webmock'
 end
+# rubocop:enable Metrics/BlockLength

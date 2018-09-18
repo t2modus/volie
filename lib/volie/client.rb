@@ -8,8 +8,11 @@ require 'volie/client/error'
 require 'volie/client/resource'
 
 # resource sublcasses
+require 'volie/client/appointment'
 require 'volie/client/call'
 require 'volie/client/campaign'
+require 'volie/client/customer'
+require 'volie/client/disposition'
 require 'volie/client/organization'
 
 module Volie

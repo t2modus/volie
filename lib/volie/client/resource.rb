@@ -71,8 +71,8 @@ module Volie
           options[:except] = [options[:except]].flatten.compact
           options[:only] = [options[:only]].flatten.compact
           !(
-            (options[:except].map(&:to_s).include?(action.to_s)) ||
-            (options[:only].size > 0 && !options[:only].map(&:to_s).include?(action.to_s))
+            options[:except].map(&:to_s).include?(action.to_s) ||
+            (!options[:only].empty? && !options[:only].map(&:to_s).include?(action.to_s))
           )
         end
 
@@ -91,11 +91,14 @@ module Volie
             end
           end
 
+          # Deliberately not using a guard clause here to match the style of the rest of the method
+          # rubocop:disable Style/GuardClause
           if should_define_rest_action?(:create, params)
             define_singleton_method :create do |attributes|
               new post(path: "create_#{resource_name}", parameters: attributes)
             end
           end
+          # rubocop:enable Style/GuardClause
         end
 
         def valid_keys
