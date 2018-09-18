@@ -10,9 +10,7 @@ module Volie
       # valid key
       # rubocop:disable Style/ClassAndModuleChildren
       class ::Volie::Client::Resource
-        def self.valid_keys
-          %i[test_key hello goodbye]
-        end
+        VALID_KEYS = %i[test_key hello goodbye].freeze
       end
       # rubocop:enable Style/ClassAndModuleChildren
 

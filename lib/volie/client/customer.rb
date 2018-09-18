@@ -15,6 +15,22 @@ module Volie
                       middle_name organization_key postal_code state_province time_zone updated_at
                       work_phone work_phone_dnc_flag].freeze
       define_rest_actions :customer, except: :create
+
+      def update(attributes = {})
+        self.class.new self.class.post(path: 'update_customer', parameters: @attributes.merge(attributes))
+      end
+
+      def destroy
+        self.class.validate_configured!
+        response = HTTP.post(self.class.request_url(path: 'destroy_customer'), params: { customer_key: self.customer_key })
+        response.code == 200 && response.body.to_s == 'OK'
+      end
+
+      class << self
+        def find_or_create_by(attributes)
+          new post(path: 'match_or_create_customer', parameters: attributes)
+        end
+      end
     end
   end
 end

@@ -7,27 +7,31 @@ module ResourceHelper
     ::Volie::Client.configure(access_key: 'fake key', secret_key: 'other_fake_key')
   end
 
+  def fake_resource(resource_name)
+    send("fake_#{resource_name}")
+  end
+
+  def stub_resource_request(action, resource_name, expected_response, expected_code)
+    stub_request(:post, /#{action}_#{resource_name}/).to_return(body: expected_response, status: expected_code)
+  end
+
   RESOURCES.each do |resource|
     define_method "fake_#{resource}" do
       "FAKE_#{resource.upcase}".constantize
     end
 
-    def fake_resource(resource_name)
-      send("fake_#{resource_name}")
-    end
-
     # there's really no way to make these fit nicely on one line or to break them up
     # rubocop:disable Metrics/LineLength
     define_method "stub_list_#{resource.pluralize}" do |expected_response = [send("fake_#{resource}")].to_json, expected_code = 200|
-      stub_request(:post, /get_#{resource.pluralize}/).to_return(body: expected_response, status: expected_code)
+      stub_resource_request(:get, resource.pluralize, expected_response, expected_code)
     end
 
     define_method "stub_create_#{resource}" do |expected_response = send("fake_#{resource}").to_json, expected_code = 200|
-      stub_request(:post, /create_#{resource}/).to_return(body: expected_response, status: expected_code)
+      stub_resource_request(:create, resource, expected_response, expected_code)
     end
 
     define_method "stub_find_#{resource}" do |expected_response = send("fake_#{resource}").to_json, expected_code = 200|
-      stub_request(:post, /find_#{resource}/).to_return(body: expected_response, status: expected_code)
+      stub_resource_request(:find, resource, expected_response, expected_code)
     end
     # rubocop:enable Metrics/LineLength
   end
