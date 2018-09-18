@@ -2,32 +2,89 @@ PATH
   remote: .
   specs:
     volie (0.1.0)
+      activesupport
+      fast_blank
+      http
+      multi_json
 
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (5.2.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
+    ansi (1.5.0)
+    builder (3.2.3)
     byebug (10.0.2)
     coderay (1.1.2)
+    concurrent-ruby (1.0.5)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
+    domain_name (0.5.20180417)
+      unf (>= 0.0.5, < 1.0.0)
+    fast_blank (1.0.0)
+    hashdiff (0.3.7)
+    http (3.3.0)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 2.0)
+      http_parser.rb (~> 0.6.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    http-form_data (2.1.1)
+    http_parser.rb (0.6.0)
+    i18n (1.1.0)
+      concurrent-ruby (~> 1.0)
+    metaclass (0.0.4)
     method_source (0.9.0)
     minitest (5.11.3)
+    minitest-reporters (1.1.19)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
+    mocha (1.7.0)
+      metaclass (~> 0.0.1)
+    multi_json (1.13.1)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     pry-byebug (3.6.0)
       byebug (~> 10.0)
       pry (~> 0.10)
+    public_suffix (3.0.3)
     rake (10.5.0)
+    ruby-progressbar (1.9.0)
+    safe_yaml (1.0.4)
+    thread_safe (0.3.6)
+    tzinfo (1.2.5)
+      thread_safe (~> 0.1)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.5)
+    webmock (3.4.2)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   bundler (~> 1.16)
+  byebug
   minitest (~> 5.0)
+  minitest-reporters
+  mocha
   pry
   pry-byebug
   rake (~> 10.0)
   volie!
+  webmock
 
 BUNDLED WITH
    1.16.1
