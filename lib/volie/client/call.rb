@@ -3,9 +3,9 @@
 module Volie
   module Client
     # This class is responsible for all communication
-    # with Volie's servers regarding Campaign objects, and
-    # for representing campaign objects once received. It's also
-    # responsible for representing campaign objects and providing
+    # with Volie's servers regarding call objects, and
+    # for representing call objects once received. It's also
+    # responsible for representing call objects and providing
     # association methods. Like an ActiveRecord instance, but
     # backed by a REST api rather than a database.
     class Call < Resource

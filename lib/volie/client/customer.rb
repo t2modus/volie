@@ -3,9 +3,9 @@
 module Volie
   module Client
     # This class is responsible for all communication
-    # with Volie's servers regarding Campaign objects, and
-    # for representing campaign objects once received. It's also
-    # responsible for representing campaign objects and providing
+    # with Volie's servers regarding Customer objects, and
+    # for representing customer objects once received. It's also
+    # responsible for representing customer objects and providing
     # association methods. Like an ActiveRecord instance, but
     # backed by a REST api rather than a database.
     class Customer < Resource
@@ -22,7 +22,10 @@ module Volie
 
       def destroy
         self.class.validate_configured!
-        response = HTTP.post(self.class.request_url(path: 'destroy_customer'), params: { customer_key: self.customer_key })
+        response = HTTP.post(
+          self.class.request_url(path: 'destroy_customer'),
+          params: { customer_key: self.customer_key }
+        )
         response.code == 200 && response.body.to_s == 'OK'
       end
 

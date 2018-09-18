@@ -170,4 +170,68 @@ FAKE_CUSTOMER = {
   'work_phone_dnc_flag' => nil
 }.freeze
 
-RESOURCES = %w[organization campaign call appointment disposition customer].freeze
+FAKE_CAMPAIGN_CUSTOMER = {
+  'campaign_customer_key' => '0456b316-3eaa-4542-ba4b-c52d5fc98e46',
+  'appointment_key' => nil,
+  'campaign_key' => 'c3d150b4-8680-4fad-962d-603cee1f757e',
+  'campaign_run_key' => nil,
+  'customer_vehicle_key' => nil,
+  'customer_key' => '7b4d5b20-f613-0134-07fe-72a2b8f8d9ae',
+  'organization_key' => 'dce4b6f0-e4d5-0134-a902-7ea06458c1e8',
+  'survey_key' => '1d89b7f0-e4d7-0134-eb24-0e72b07369b1',
+  'upload_file_key' => nil,
+  'vehicle_key' => nil,
+  'assigned_at' => nil,
+  'assigned_to' => nil,
+  'attempt_count' => 0,
+  'campaign_email_sent' => false,
+  'completed_at' => 1_488_831_134,
+  'contacted' => true,
+  'contacted_at' => 1_488_831_134,
+  'created_at' => 1_493_234_657,
+  'eligible_for_outbound' => false,
+  'expiration_code' => 'already_completed',
+  'expired_at' => 1_496_852_108,
+  'expires_at' => 1_577_836_800,
+  'is_completed' => true,
+  'last_attempt_time' => 1_488_831_134,
+  'updated_at' => 1_496_852_108
+}.freeze
+
+FAKE_VEHICLE = {
+  'vehicle_make' => 'Honda',
+  'vehicle_model' => 'Accord',
+  'vehicle_model_year' => 2018,
+  'vehicle_trim' => nil,
+  'vehicle_vin' => '1HGBA7433GA007422'
+}.freeze
+
+FAKE_VEHICLE_RESPONSE = {
+  'campaign_customer_key' => '0456b316-3eaa-4542-ba4b-c52d5fc98e46',
+  'appointment_key' => nil,
+  'campaign_key' => 'c3d150b4-8680-4fad-962d-603cee1f757e',
+  'campaign_run_key' => nil,
+  'customer_vehicle_key' => '8e1e14cb-8f72-431a-9664-40808bdc09ac',
+  'customer_key' => '7b4d5b20-f613-0134-07fe-72a2b8f8d9ae',
+  'organization_key' => 'dce4b6f0-e4d5-0134-a902-7ea06458c1e8',
+  'survey_key' => '1d89b7f0-e4d7-0134-eb24-0e72b07369b1',
+  'upload_file_key' => nil,
+  'vehicle_key' => '55e0f08a-1ea5-4fe5-94de-89770e61282a',
+  'assigned_at' => nil,
+  'assigned_to' => nil,
+  'attempt_count' => 0,
+  'campaign_email_sent' => false,
+  'completed_at' => 1_488_831_134,
+  'contacted' => true,
+  'contacted_at' => 1_488_831_134,
+  'created_at' => 1_493_234_657,
+  'eligible_for_outbound' => false,
+  'expiration_code' => 'already_completed',
+  'expired_at' => 1_496_852_108,
+  'expires_at' => 1_577_836_800,
+  'is_completed' => true,
+  'last_attempt_time' => 1_488_831_134,
+  'updated_at' => 1_496_852_108
+}.freeze
+
+RESOURCES = %w[organization campaign call appointment disposition customer campaign_customer].freeze

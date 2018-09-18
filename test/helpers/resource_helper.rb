@@ -49,7 +49,7 @@ module ResourceClassHelper
 
   def define_standard_resource_tests(resource_name, options = {})
     params = options.with_indifferent_access
-    resource_class = "::Volie::Client::#{resource_name.titleize}".constantize
+    resource_class = "::Volie::Client::#{resource_name.camelize}".constantize
 
     if should_define_rest_action_test?(:create, params)
       define_method "test_can_create_a_#{resource_name}" do
