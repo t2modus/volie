@@ -55,11 +55,9 @@ module Volie
 
         def handle_response(response, success_codes = [200])
           succeeded = success_codes.include? response.code
-          File.open("error.html", 'w') do |f|
-            f.write response.body.to_s
-          end
+          puts(response.body)
           raise Error, "Received an error (#{response.code}) from the Volie Servers: #{response.body}" unless succeeded
-          MultiJson.load(response.body)
+          MultiJson.load(response.body.to_s)
         end
 
         def post(path:, parameters:)
