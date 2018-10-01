@@ -14,7 +14,7 @@ module Volie
                       created_at customer_key customer_vehicle_key
                       eligible_for_outbound expiration_code expired_at
                       expires_at is_completed last_attempt_time organization_key
-                      survey_key updated_at upload_file_key vehicle_key].freeze
+                      sale_key survey_key updated_at upload_file_key vehicle_key].freeze
       define_rest_actions :campaign_customer, except: :create
 
       def remove_from_queue

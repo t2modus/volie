@@ -15,6 +15,7 @@ require 'volie/client/campaign_customer'
 require 'volie/client/customer'
 require 'volie/client/disposition'
 require 'volie/client/organization'
+require 'volie/client/sale'
 
 module Volie
   # This module serves primarily as a namespace for the API code,

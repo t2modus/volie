@@ -48,9 +48,7 @@ module Volie
 
         def request_url(path:)
           path = path[1..-1] while path.start_with?('/')
-          url = "#{BASE_URL}/#{path}"
-          puts "Requesting #{url}"
-          url
+          "#{BASE_URL}/#{path}"
         end
 
         def handle_response(response, success_codes = [200])
