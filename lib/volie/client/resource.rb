@@ -12,6 +12,7 @@ module Volie
     # to inherit from
     class Resource
       BASE_URL = 'https://app.volie.io/api/v1'
+      attr_reader :attributes
 
       def initialize(attributes)
         @attributes = self.class
