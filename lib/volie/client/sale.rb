@@ -9,7 +9,8 @@ module Volie
     class Sale < Resource
       VALID_KEYS = %i[apr bank_name buyer_address_1 buyer_address_2 buyer_cell_phone buyer_city_region
                       buyer_email_address_1 buyer_first_name buyer_home_phone buyer_last_name buyer_postal_code
-                      buyer_state_province buyer_work_phone closing_manager_name closing_manager_number customer_key
+                      buyer_state_province buyer_work_phone campaign_key
+                      closing_manager_name closing_manager_number customer_key
                       customer_number deal_book_date deal_number deal_type delivery_odometer extended_warranty_flag
                       fand_i_manager_name fand_i_manager_number lease_cap_cost_reduction lease_odometer_allowance
                       lease_odometer_penalty lease_residual_amount lease_residual_percentage monthly_payment
