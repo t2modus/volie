@@ -234,4 +234,30 @@ FAKE_VEHICLE_RESPONSE = {
   'updated_at' => 1_496_852_108
 }.freeze
 
-RESOURCES = %w[organization campaign call appointment disposition customer campaign_customer].freeze
+FAKE_USER = {
+  'user_key' => 'cdc18c40-e4d5-0134-a8ff-7ea06458c1e8',
+  'activated_organization_key' => 'b3d6486b-be75-41b7-9d11-cd87531b15c2',
+  'created_at' => 1_488_260_407,
+  'deleted_at' => nil,
+  'email' => 'pasperry@gmail.com',
+  'first_name' => 'Peter',
+  'full_name' => 'Peter Sperry',
+  'inbound_calls_today' => 0,
+  'is_active' => true,
+  'is_agent' => true,
+  'last_name' => 'Sperry',
+  'last_sign_in_at' => 1_508_952_418,
+  'online_agent' => true,
+  'outbound_calls_today' => 0,
+  'phone_number_1' => nil,
+  'phone_number_2' => nil,
+  'queues_locked' => false,
+  'skill_level' => 1,
+  'sign_in_count' => 63,
+  'system_alerts' => false,
+  'time_zone' => 'Mountain Time (US & Canada)',
+  'updated_at' => 1_509_126_537,
+  'zone_offset' => 6
+}.freeze
+
+RESOURCES = %w[organization campaign call appointment disposition customer campaign_customer user].freeze
