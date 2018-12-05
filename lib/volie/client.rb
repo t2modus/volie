@@ -17,6 +17,7 @@ require 'volie/client/disposition'
 require 'volie/client/organization'
 require 'volie/client/sale'
 require 'volie/client/survey_attempt'
+require 'volie/client/user'
 
 module Volie
   # This module serves primarily as a namespace for the API code,
