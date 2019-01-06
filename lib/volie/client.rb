@@ -16,6 +16,8 @@ require 'volie/client/customer'
 require 'volie/client/disposition'
 require 'volie/client/organization'
 require 'volie/client/sale'
+require 'volie/client/service'
+require 'volie/client/service_line'
 require 'volie/client/survey_attempt'
 require 'volie/client/user'
 
