@@ -18,9 +18,10 @@ module Volie
         @attributes = self.class
                           .empty_instance_hash
                           .merge(
-                            attributes.transform_keys(&method(:substitute_numbers))
-                                      .symbolize_keys
-                                      .slice(*self.class.valid_keys)
+                            transform_params(attributes)
+                              .transform_keys(&method(:substitute_numbers))
+                              .symbolize_keys
+                              .slice(*self.class.valid_keys)
                           )
                           .with_indifferent_access
         self.define_attr_accessors
@@ -32,6 +33,14 @@ module Volie
       # address_one, email_address_two, etc
       def substitute_numbers(key)
         key.gsub('_one', '_1').gsub('_two', '_2')
+      end
+
+      # this method literally exists to be overriden in the customer
+      # resource so that we have a clean way of renaming the
+      # fields so that instead of "get_customers" we have "state_province"
+      # like we would expect.
+      def transform_params(params)
+        params
       end
 
       def define_attr_accessors

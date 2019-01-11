@@ -16,6 +16,12 @@ module Volie
                       work_phone work_phone_dnc_flag].freeze
       define_rest_actions :customer, except: :create
 
+      # Overriding this method here so we can fix the problem with
+      # state_province being sent as get_customers instead
+      def transform_params(params)
+        params.merge('state_province' => params['get_customers'])
+      end
+
       def update(attributes = {})
         self.class.new self.class.post(path: 'update_customer', parameters: @attributes.merge(attributes))
       end
