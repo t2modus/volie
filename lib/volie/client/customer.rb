@@ -19,7 +19,11 @@ module Volie
       # Overriding this method here so we can fix the problem with
       # state_province being sent as get_customers instead
       def transform_params(params)
-        params.merge('state_province' => params['get_customers'])
+        if params['get_customers'] && !params['state_province']
+          params.merge('state_province' => params['get_customers'])
+        else
+          params
+        end
       end
 
       def update(attributes = {})
