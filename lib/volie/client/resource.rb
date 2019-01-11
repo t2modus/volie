@@ -17,9 +17,21 @@ module Volie
       def initialize(attributes)
         @attributes = self.class
                           .empty_instance_hash
-                          .merge(attributes.symbolize_keys.slice(*self.class.valid_keys))
+                          .merge(
+                            attributes.transform_keys(&method(:substitute_numbers))
+                                      .symbolize_keys
+                                      .slice(*self.class.valid_keys)
+                          )
                           .with_indifferent_access
         self.define_attr_accessors
+      end
+
+      # This method is stupid. It's only necessary because
+      # literally ALL of Volie's documentation lists the fields
+      # as address_1, email_address_2, etc, but they're sending back
+      # address_one, email_address_two, etc
+      def substitute_numbers(key)
+        key.gsub('_one', '_1').gsub('_two', '_2')
       end
 
       def define_attr_accessors
