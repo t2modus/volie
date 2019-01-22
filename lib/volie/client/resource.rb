@@ -105,6 +105,18 @@ module Volie
             define_singleton_method :list do |options = {}|
               post(path: "get_#{resource_name.to_s.pluralize}", parameters: options).map(&method(:new))
             end
+
+            define_singleton_method :list_all_the_things do |options = {}, &block|
+              offset = 0
+              while (batch = list(options.merge(offset: offset))).any?
+                block.call(batch)
+                offset += 100
+              end
+            end
+
+            define_singleton_method :list_all_the_things_where do |options = {}, &block|
+              list_all_the_things(options, &block)
+            end
           end
 
           if should_define_rest_action?(:find, params)
