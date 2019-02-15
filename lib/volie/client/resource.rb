@@ -32,7 +32,7 @@ module Volie
       # as address_1, email_address_2, etc, but they're sending back
       # address_one, email_address_two, etc
       def substitute_numbers(key)
-        key.gsub('_one', '_1').gsub('_two', '_2')
+        key.to_s.gsub('_one', '_1').gsub('_two', '_2')
       end
 
       # this method literally exists to be overriden in the customer
