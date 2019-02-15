@@ -16,8 +16,8 @@ module Volie
                       lease_odometer_penalty lease_residual_amount lease_residual_percentage monthly_payment
                       organization_key retail_down_payment sale_key sales_manager_name sales_manager_number
                       salesman_one_name salesman_one_number salesman_two_name salesman_two_number term
-                      total_amount_financed total_odometer_allowed vehicle_make vehicle_model vehicle_model_year
-                      vehicle_trim vehicle_type vehicle_vin].freeze
+                      t2_lead_id total_amount_financed total_odometer_allowed vehicle_make vehicle_model
+                      vehicle_model_year vehicle_trim vehicle_type vehicle_vin].freeze
 
       class << self
         def find_or_create_by(attributes)
