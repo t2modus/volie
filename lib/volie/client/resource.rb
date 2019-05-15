@@ -75,7 +75,7 @@ module Volie
 
         def handle_response(response, success_codes = [200])
           succeeded = success_codes.include? response.code
-          raise Error, "Received an error (#{response.code}) from the Volie Servers: #{response.body}" unless succeeded
+          raise ::Volie::Client::Error, "Received an error (#{response.code}) from the Volie Servers: #{response.body}" unless succeeded
           MultiJson.load(response.body.to_s)
         end
 
@@ -86,7 +86,7 @@ module Volie
 
         def validate_configured!
           error_message = 'Volie must be configured with a valid API access key and secret key before use.'
-          raise Error, error_message unless Configuration.instance.valid?
+          raise ::Volie::Client::Error, error_message unless Configuration.instance.valid?
         end
 
         def should_define_rest_action?(action, options)
