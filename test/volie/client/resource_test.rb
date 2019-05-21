@@ -74,7 +74,7 @@ module Volie
         assert Resource.methods.include?(:find)
         refute Resource.methods.include?(:create)
         Resource.define_rest_actions(:test)
-        %i[list create find].each do |method|
+        %i[list create find list_all_the_things list_all_the_things_where].each do |method|
           assert Resource.methods.include?(method)
         end
       end
