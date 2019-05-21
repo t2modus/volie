@@ -115,7 +115,13 @@ module Volie
             end
 
             define_singleton_method :list_all_the_things_where do |options = {}, &block|
-              list_all_the_things(options, &block)
+              if block_given?
+                list_all_the_things(options, &block)
+              else
+                list = []
+                list_all_the_things(options) { |batch| list.push(*batch) }
+                list.flatten
+              end
             end
           end
 
