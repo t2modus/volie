@@ -61,10 +61,10 @@ module Volie
       end
 
       class << self
-        def auth_params
+        def auth_params(configuration)
           {
-            access_key: Configuration.instance.access_key,
-            secret_key: Configuration.instance.secret_key
+            access_key: configuration.access_key,
+            secret_key: configuration.secret_key
           }
         end
 
@@ -79,14 +79,15 @@ module Volie
           MultiJson.load(response.body.to_s)
         end
 
-        def post(path:, parameters:)
+        def post(path:, parameters:, configuration: nil)
+          configuration = Configuration.new if configuration.nil?
           validate_configured!
           handle_response HTTP.post(request_url(path: path), params: parameters.merge(auth_params))
         end
 
-        def validate_configured!
+        def validate_configured!(configuration = nil)
           error_message = 'Volie must be configured with a valid API access key and secret key before use.'
-          raise ::Volie::Client::Error, error_message unless Configuration.instance.valid?
+          raise ::Volie::Client::Error, error_message unless configuration.valid?
         end
 
         def should_define_rest_action?(action, options)
@@ -98,7 +99,7 @@ module Volie
           )
         end
 
-        def define_rest_actions(resource_name, opts = {})
+        def define_rest_actions(resource_name, opts = {}, configuration = nil)
           params = opts.with_indifferent_access
 
           if should_define_rest_action?(:list, params)

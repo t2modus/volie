@@ -7,8 +7,6 @@ module Volie
   module Client
     # This class is responsible for holding Authentication information for the Volie API
     class Configuration
-      include Singleton
-
       attr_accessor :access_key, :secret_key
 
       def initialize
