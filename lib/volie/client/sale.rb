@@ -20,8 +20,8 @@ module Volie
                       vehicle_trim vehicle_type vehicle_vin].freeze
 
       class << self
-        def find_or_create_by(attributes)
-          new post(path: 'match_or_create_sale', parameters: attributes)
+        def find_or_create_by(attributes, configuration)
+          new post(path: 'match_or_create_sale', parameters: attributes, configuration: configuration)
         end
       end
     end

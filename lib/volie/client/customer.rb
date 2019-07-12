@@ -26,8 +26,8 @@ module Volie
         end
       end
 
-      def update(attributes = {})
-        self.class.new self.class.post(path: 'update_customer', parameters: @attributes.merge(attributes))
+      def update(attributes = {}, configuration = nil)
+        self.class.new self.class.post(path: 'update_customer', parameters: @attributes.merge(attributes), configuration: configuration)
       end
 
       def destroy
@@ -40,8 +40,8 @@ module Volie
       end
 
       class << self
-        def find_or_create_by(attributes)
-          new post(path: 'match_or_create_customer', parameters: attributes)
+        def find_or_create_by(attributes, configuration = nil)
+          new post(path: 'match_or_create_customer', parameters: attributes, configuration: configuration)
         end
       end
     end
