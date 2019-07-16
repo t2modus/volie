@@ -25,7 +25,7 @@ module Volie
         response.is_a?(Hash) && response['errors'] == false
       end
 
-      def set_customer_vehicle(make:, model:, year:, trim:, vin:)
+      def set_customer_vehicle(make:, model:, year:, trim:, vin:, configuration: nil)
         self.class.post(
           path: 'set_customer_vehicle',
           parameters: {
@@ -35,13 +35,14 @@ module Volie
             vehicle_model_year: year,
             vehicle_trim: trim,
             vehicle_vin: vin
-          }
+          },
+          configuration: configuration
         )
       end
 
       class << self
-        def create(attributes)
-          new post(path: 'enroll_campaign_customer', parameters: attributes)
+        def create(attributes, configuration = nil)
+          new post(path: 'enroll_campaign_customer', parameters: attributes, configuration: configuration)
         end
       end
     end
