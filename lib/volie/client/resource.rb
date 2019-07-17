@@ -90,7 +90,7 @@ module Volie
           raise ::Volie::Client::Error, error_message unless configuration.valid?
         end
 
-        def should_define_rest_action?(action, options)
+        def should_define_rest_action?(action, options, configuration = nil)
           options[:except] = [options[:except]].flatten.compact
           options[:only] = [options[:only]].flatten.compact
           !(
@@ -102,7 +102,7 @@ module Volie
         def define_rest_actions(resource_name, opts = {}, configuration = nil)
           params = opts.with_indifferent_access
 
-          if should_define_rest_action?(:list, params)
+          if should_define_rest_action?(:list, params, configuration)
             define_singleton_method :list do |options = {}|
               post(configuration, path: "get_#{resource_name.to_s.pluralize}", parameters: options).map(&method(:new))
             end
