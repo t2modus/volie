@@ -81,8 +81,8 @@ module Volie
 
         def post(path:, parameters:, configuration: nil)
           configuration = Configuration.new if configuration.nil?
-          validate_configured!
-          handle_response HTTP.post(request_url(path: path), params: parameters.merge(auth_params), configuration: configuration)
+          validate_configured!(configuration)
+          handle_response HTTP.post(request_url(path: path), params: parameters.merge(auth_params(configuration)))
         end
 
         def validate_configured!(configuration = nil)
@@ -99,37 +99,37 @@ module Volie
           )
         end
 
-        def define_rest_actions(resource_name, opts = {}, configuration = nil)
+        def define_rest_actions(resource_name, opts = {})
           params = opts.with_indifferent_access
 
-          if should_define_rest_action?(:list, params, configuration)
-            define_singleton_method :list do |options = {}|
-              post(configuration, path: "get_#{resource_name.to_s.pluralize}", parameters: options).map(&method(:new))
+          if should_define_rest_action?(:list, params)
+            define_singleton_method :list do |options = {}, configuration = nil|
+              post(configuration: configuration, path: "get_#{resource_name.to_s.pluralize}", parameters: options).map(&method(:new))
             end
 
-            define_singleton_method :list_all_the_things do |options = {}, &block|
+            define_singleton_method :list_all_the_things do |options = {}, configuration = nil, &block|
               offset = 0
-              while (batch = list(options.merge(offset: offset))).any?
+              while (batch = list(options.merge(offset: offset), configuration)).any?
                 block.call(batch)
                 offset += 100
               end
             end
 
-            define_singleton_method :list_all_the_things_where do |options = {}, &block|
-              list_all_the_things(options, &block)
+            define_singleton_method :list_all_the_things_where do |options = {}, configuration = nil, &block|
+              list_all_the_things(options, configuration, &block)
             end
           end
 
-          if should_define_rest_action?(:find, params, configuration)
-            define_singleton_method :find do |resource_key|
+          if should_define_rest_action?(:find, params)
+            define_singleton_method :find do |resource_key, configuration = nil|
               new post(path: "find_#{resource_name}", parameters: { "#{resource_name}_key" => resource_key }, configuration: configuration)
             end
           end
 
           # Deliberately not using a guard clause here to match the style of the rest of the method
           # rubocop:disable Style/GuardClause
-          if should_define_rest_action?(:create, params, configuration)
-            define_singleton_method :create do |attributes|
+          if should_define_rest_action?(:create, params)
+            define_singleton_method :create do |attributes, configuration = nil|
               new post(path: "create_#{resource_name}", parameters: attributes, configuration: configuration)
             end
           end
