@@ -9,11 +9,25 @@ require 'minitest/reporters'
 
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
 
+ENV['VOLIE_ACCESS_KEY'] = "fake"
+ENV['VOLIE_ACCESS_KEY'] = "faker"
+
 module Minitest
   class Test
     def before_setup
-      Volie::Client::Configuration.instance.clear!
+      Volie::Client::Configuration.new
       super # needed to allow mocha setup
+    end
+
+    def new_configuration
+      Volie::Client::Configuration.new(access_key: nil, secret_key: nil)
+      if @access_key.nil? && @secret_key.nil?
+        @access_key = "test"
+        @secret_key = "test"
+      else
+        @access_key = access_key
+        @secret_key = secret_key
+      end
     end
 
     def use_default_configuration

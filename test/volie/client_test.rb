@@ -3,8 +3,9 @@
 module Volie
   class ClientTest < Minitest::Test
     def test_can_configure_with_block
-      assert_nil Client::Configuration.instance.access_key
-      assert_nil Client::Configuration.instance.secret_key
+      configuration = Client::Configuration.new
+      assert_nil configuration.access_key
+      assert_nil configuration.secret_key
       Client.configure do |config|
         config.access_key = 'test-access'
         config.secret_key = 'test-secret'

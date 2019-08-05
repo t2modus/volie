@@ -41,6 +41,17 @@ module Volie
         assert_equal({ access_key: 'fake', secret_key: 'faker' }, Resource.auth_params)
       end
 
+      # TODO: write test to make sure that a passed in config and a defualt config
+      # that have the same credentials will return the same result
+      def test_passed_in_configuration_works_the_same_as_default_configuration
+        ENV['VOLIE_ACCESS_KEY'] = "access"
+        ENV['VOLIE_SECRET_KEY'] = "secret"
+        use_default_configuration
+        new_configuration
+
+
+      end
+
       def test_post_will_not_post_if_not_configured
         # since we're running webmock, any actual HTTP requests made would raise an error
         Configuration.instance.stubs(:valid).returns(false)

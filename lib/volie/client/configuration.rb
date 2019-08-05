@@ -9,8 +9,13 @@ module Volie
     class Configuration
       attr_accessor :access_key, :secret_key
 
-      def initialize
-        self.configure_from_environment
+      def initialize(access_key: nil, secret_key: nil)
+        if access_key.nil? && secret_key.nil?
+          self.configure_from_environment
+        else
+          @access_key = access_key
+          @secret_key = secret_key
+        end
       end
 
       def configure(access_key:, secret_key:)
