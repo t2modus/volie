@@ -22,7 +22,7 @@ module Volie
       configuration.secret_key = nil
       assert_nil configuration.access_key
       assert_nil configuration.secret_key
-      Client.configure(access_key: 'test-access', secret_key: 'test-secret')
+      configuration.configure(access_key: 'test-access', secret_key: 'test-secret')
       assert_equal 'test-access', configuration.access_key
       assert_equal 'test-secret', configuration.secret_key
     end

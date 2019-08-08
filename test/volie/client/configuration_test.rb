@@ -10,7 +10,7 @@ module Volie
       end
 
       def test_can_successfully_configure_the_client
-        @configuration.configure('test-access-key', 'test-secret-key')
+        self.configure_client('test-access-key', 'test-secret-key')
         assert_equal 'test-access-key', @configuration.access_key
         assert_equal 'test-secret-key', @configuration.secret_key
       end
@@ -25,6 +25,7 @@ module Volie
       end
 
       def test_configuration_with_no_access_key_or_secret_key_is_invalid
+        self.configure_client('test', 'test')
         @configuration.clear!
         refute @configuration.valid?
       end
