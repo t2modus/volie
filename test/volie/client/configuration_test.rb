@@ -6,7 +6,7 @@ module Volie
   module Client
     class ConfigurationTest < ::Minitest::Test
       def configure_client(access_key, secret_key)
-        @configuration = Configuration.new(access_key: access_key, secret_key: secret_key)
+        @configuration = Volie::Client::Configuration.new(access_key: access_key, secret_key: secret_key)
       end
 
       def test_can_successfully_configure_the_client
@@ -25,6 +25,7 @@ module Volie
       end
 
       def test_configuration_with_no_access_key_or_secret_key_is_invalid
+        @configuration.clear!
         refute @configuration.valid?
       end
 
