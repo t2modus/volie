@@ -37,7 +37,7 @@ module Volie
         # singleton configuration class already defined by this point. So we'll
         # manually call the configure from environment method and then confirm
         # that that method is called by the initialize method
-        @configuration.configure_from_environment
+        self.configure_client(nil, nil)
         assert_equal 'testing-env-access', @configuration.access_key
         assert_equal 'testing-env-secret', @configuration.secret_key
       end

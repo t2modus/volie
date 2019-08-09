@@ -54,7 +54,8 @@ module Volie
 
       def test_post_will_not_post_if_not_configured
         # since we're running webmock, any actual HTTP requests made would raise an error
-        Configuration.instance.stubs(:valid).returns(false)
+        configuration = Volie::Client::Configuration.new
+        configuration.stubs(:valid).returns(false)
         assert_raises ::Volie::Client::Error do
           Resource.post(path: 'made_up_path', parameters: {})
         end
