@@ -36,9 +36,10 @@ module Volie
       end
 
       def test_auth_params_returns_valid_auth_credentials_based_on_the_configuration
-        assert_equal({ access_key: nil, secret_key: nil }, Resource.auth_params)
-        use_default_configuration
-        assert_equal({ access_key: 'fake', secret_key: 'faker' }, Resource.auth_params)
+        configuration = Volie::Client::Configuration.new(access_key: nil, secret_key: nil)
+        assert_equal({ access_key: 'access', secret_key: 'secret' }, Resource.auth_params(configuration))
+        configuration = use_default_configuration
+        assert_equal({ access_key: 'fake', secret_key: 'faker' }, Resource.auth_params(configuration))
       end
 
       # TODO: write test to make sure that a passed in config and a defualt config

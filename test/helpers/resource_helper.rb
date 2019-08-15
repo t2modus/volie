@@ -4,7 +4,7 @@ require 'helpers/constants'
 
 module ResourceHelper
   def setup
-    ::Volie::Client.configure(access_key: 'fake key', secret_key: 'other_fake_key')
+    ::Volie::Client::Configuration.new(access_key: 'fake key', secret_key: 'other_fake_key')
   end
 
   def fake_resource(resource_name)

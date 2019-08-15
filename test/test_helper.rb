@@ -19,8 +19,8 @@ module Minitest
       super # needed to allow mocha setup
     end
 
-    def new_configuration
-      Volie::Client::Configuration.new(access_key: nil, secret_key: nil)
+    def new_configuration(access_key, secret_key)
+      Volie::Client::Configuration.new(access_key: access_key, secret_key: secret_key)
       if @access_key.nil? && @secret_key.nil?
         @access_key = "test"
         @secret_key = "test"
@@ -31,7 +31,7 @@ module Minitest
     end
 
     def use_default_configuration
-      ::Volie::Client.configure(access_key: 'fake', secret_key: 'faker')
+      ::Volie::Client::Configuration.new(access_key: 'fake', secret_key: 'faker')
     end
   end
 end

@@ -44,8 +44,9 @@ module Volie
       end
 
       def test_can_create_a_campaign_customer
+        configuration = Volie::Client::Configuration.new(access_key: "access", secret_key: "secret")
         stub_resource_request(:enroll, :campaign_customer, FAKE_CAMPAIGN_CUSTOMER.to_json, 200)
-        assert_equal CampaignCustomer.new(FAKE_CAMPAIGN_CUSTOMER), CampaignCustomer.create(FAKE_CAMPAIGN_CUSTOMER)
+        assert_equal CampaignCustomer.new(FAKE_CAMPAIGN_CUSTOMER), CampaignCustomer.create(FAKE_CAMPAIGN_CUSTOMER, configuration)
       end
     end
   end
