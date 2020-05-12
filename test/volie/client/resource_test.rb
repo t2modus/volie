@@ -24,10 +24,16 @@ module Volie
       end
 
       def test_post_sends_a_post_request_to_the_given_url_with_auth_parameters_attached
-        stub_request(:post, 'https://app.volie.io/api/v1/made_up_url?access_key=fake&secret_key=faker')
-          .to_return(body: '{"message": "Success"}')
-        use_default_configuration
-        assert_equal({ 'message' => 'Success' }, Resource.post(path: 'made_up_url', parameters: {}))
+        configuration = Volie::Client::Configuration.new(access_key: "access", secret_key: "secret")
+        stub_request(:post, "https://app.volie.io/api/v1/made_up_url?access_key=access&secret_key=secret").
+        with(
+          headers: {
+          'Connection'=>'close',
+          'Host'=>'app.volie.io',
+          'User-Agent'=>'http.rb/4.1.1'
+          }).
+          to_return(status: 200, body: '{"message": "Success"}', headers: {})
+        assert_equal({ 'message' => 'Success' }, Resource.post(path: 'made_up_url', parameters: {}, configuration: configuration))
       end
 
       def test_two_instances_are_equal_if_their_attributes_are_equal
@@ -36,16 +42,28 @@ module Volie
       end
 
       def test_auth_params_returns_valid_auth_credentials_based_on_the_configuration
-        assert_equal({ access_key: nil, secret_key: nil }, Resource.auth_params)
+        configuration = Volie::Client::Configuration.new(access_key: "access", secret_key: "secret")
+        assert_equal({ access_key: 'access', secret_key: 'secret' }, Resource.auth_params(configuration))
+        configuration = use_default_configuration
+        assert_equal({ access_key: 'fake', secret_key: 'faker' }, Resource.auth_params(configuration))
+      end
+
+      # TODO: write test to make sure that a passed in config and a defualt config
+      # that have the same credentials will return the same result
+      def test_passed_in_configuration_works_the_same_as_default_configuration
+        ENV['VOLIE_ACCESS_KEY'] = "access"
+        ENV['VOLIE_SECRET_KEY'] = "secret"
         use_default_configuration
-        assert_equal({ access_key: 'fake', secret_key: 'faker' }, Resource.auth_params)
+
+
       end
 
       def test_post_will_not_post_if_not_configured
         # since we're running webmock, any actual HTTP requests made would raise an error
-        Configuration.instance.stubs(:valid).returns(false)
+        configuration = Volie::Client::Configuration.new(access_key: "access", secret_key: "secret")
+        configuration.stubs(:valid?).returns(false)
         assert_raises ::Volie::Client::Error do
-          Resource.post(path: 'made_up_path', parameters: {})
+          Resource.post(path: 'made_up_path', parameters: {}, configuration: configuration)
         end
       end
 

@@ -30,8 +30,8 @@ module Volie
         self.class.new self.class.post(path: 'update_customer', parameters: @attributes.merge(attributes), configuration: configuration)
       end
 
-      def destroy
-        self.class.validate_configured!
+      def destroy(configuration = nil)
+        self.class.validate_configured!(configuration)
         response = HTTP.post(
           self.class.request_url(path: 'destroy_customer'),
           params: { customer_key: self.customer_key }

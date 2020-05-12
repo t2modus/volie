@@ -4,7 +4,7 @@ require 'helpers/constants'
 
 module ResourceHelper
   def setup
-    ::Volie::Client.configure(access_key: 'fake key', secret_key: 'other_fake_key')
+    ::Volie::Client::Configuration.new(access_key: 'fake key', secret_key: 'other_fake_key')
   end
 
   def fake_resource(resource_name)
@@ -50,13 +50,14 @@ module ResourceClassHelper
   def define_standard_resource_tests(resource_name, options = {})
     params = options.with_indifferent_access
     resource_class = "::Volie::Client::#{resource_name.camelize}".constantize
+    configuration = Volie::Client::Configuration.new(access_key: "access", secret_key: "secret")
 
     if should_define_rest_action_test?(:create, params)
       define_method "test_can_create_a_#{resource_name}" do
         send("stub_create_#{resource_name}")
         assert_equal(
           resource_class.new(fake_resource(resource_name)),
-          resource_class.create(fake_resource(resource_name))
+          resource_class.create(fake_resource(resource_name), configuration)
         )
       end
     end
@@ -64,7 +65,7 @@ module ResourceClassHelper
     if should_define_rest_action_test?(:list, params)
       define_method "test_can_list_previously_saved_#{resource_name.pluralize}" do
         send("stub_list_#{resource_name.pluralize}")
-        assert_equal [resource_class.new(fake_resource(resource_name))], resource_class.list
+        assert_equal [resource_class.new(fake_resource(resource_name))], resource_class.list(params, configuration)
       end
     end
 
@@ -75,7 +76,7 @@ module ResourceClassHelper
         send("stub_find_#{resource_name}")
         assert_equal(
           resource_class.new(fake_resource(resource_name)),
-          resource_class.find(fake_resource(resource_name)["#{resource_name}_key"])
+          resource_class.find(fake_resource(resource_name)["#{resource_name}_key"], configuration)
         )
       end
     end

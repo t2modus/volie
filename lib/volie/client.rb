@@ -32,15 +32,15 @@ module Volie
     # this method provides access to allow configuring the object
     def self.configure(access_key: nil, secret_key: nil)
       if access_key.nil? && secret_key.nil?
-        yield Configuration.instance
+        yield Volie::Client::Configuration.new
       else
-        Configuration.instance.configure(access_key: access_key, secret_key: secret_key)
+        Volie::Client::Configuration.new(access_key: access_key, secret_key: secret_key)
       end
     end
 
     # and this method provides a way to get the current configuration object
     def self.configuration
-      Configuration.instance
+      Volie::Client::Configuration.new
     end
   end
 end
