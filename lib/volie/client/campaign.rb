@@ -15,7 +15,17 @@ module Volie
                       priority purpose recurring_days recurring_type run_priority send_to_voice_mail start_date
                       twilio_number_key updated_at user_key voice_mail_greeting_text whisper_message].freeze
 
-      define_rest_actions :campaign
+      define_rest_actions(:campaign, except: [:list])
+
+      class << self
+        # Volie updated part of their API, requiring a get request for campaigns, and changing their base URL for that endpoint, so I'm writing this list method directly here, and passing list in the except: option for define_rest_actions above to skip that default method creation as a post request. 
+
+        def list(options = {}, configuration = nil)
+          configuration = Configuration.new if configuration.nil?
+          validate_configured!(configuration)
+          handle_response(HTTP.get('https://api.volie.com/v1/campaigns', params: auth_params(configuration))).map(&method(:new))          
+        end
+      end
     end
   end
 end

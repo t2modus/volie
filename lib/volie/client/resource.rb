@@ -85,6 +85,12 @@ module Volie
           handle_response HTTP.post(request_url(path: path), params: parameters.merge(auth_params(configuration)))
         end
 
+        def get(path:, parameters: {}, configuration: nil)
+          configuration = Configuration.new if configuration.nil?
+          validate_configured!(configuration)
+          handle_response HTTP.get(request_url(path: path), params: parameters.merge(auth_params(configuration)))
+        end
+
         def validate_configured!(configuration = nil)
           error_message = 'Volie must be configured with a valid API access key and secret key before use.'
           raise ::Volie::Client::Error, error_message unless configuration.valid?
