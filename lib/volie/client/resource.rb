@@ -11,7 +11,7 @@ module Volie
     # and provide an interface for the rest of the subclasses
     # to inherit from
     class Resource
-      BASE_URL = 'https://app.volie.io/api/v1'
+      BASE_URL = 'https://api.volie.com/v1/'
       attr_reader :attributes
 
       def initialize(attributes)
@@ -83,6 +83,12 @@ module Volie
           configuration = Configuration.new if configuration.nil?
           validate_configured!(configuration)
           handle_response HTTP.post(request_url(path: path), params: parameters.merge(auth_params(configuration)))
+        end
+
+        def get(path:, parameters: {}, configuration: nil)
+          configuration = Configuration.new if configuration.nil?
+          validate_configured!(configuration)
+          handle_response HTTP.get(request_url(path: path), params: parameters.merge(auth_params(configuration)))
         end
 
         def validate_configured!(configuration = nil)
