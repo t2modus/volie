@@ -11,7 +11,7 @@ module Volie
     # and provide an interface for the rest of the subclasses
     # to inherit from
     class Resource
-      BASE_URL = 'https://api.volie.com/v1/'
+      BASE_URL = 'https://api.volie.com/v1'
       attr_reader :attributes
 
       def initialize(attributes)
