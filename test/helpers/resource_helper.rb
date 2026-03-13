@@ -11,8 +11,8 @@ module ResourceHelper
     send("fake_#{resource_name}")
   end
 
-  def stub_resource_request(action, resource_name, expected_response, expected_code)
-    stub_request(:post, /#{action}_#{resource_name}/).to_return(body: expected_response, status: expected_code)
+  def stub_resource_request(http_method, url_pattern, expected_response, expected_code)
+    stub_request(http_method, url_pattern).to_return(body: expected_response, status: expected_code)
   end
 
   RESOURCES.each do |resource|
@@ -20,18 +20,17 @@ module ResourceHelper
       "FAKE_#{resource.upcase}".constantize
     end
 
-    # there's really no way to make these fit nicely on one line or to break them up
     # rubocop:disable Metrics/LineLength
     define_method "stub_list_#{resource.pluralize}" do |expected_response = [send("fake_#{resource}")].to_json, expected_code = 200|
-      stub_resource_request(:get, resource.pluralize, expected_response, expected_code)
+      stub_resource_request(:get, /\/v1\/#{resource.pluralize}/, expected_response, expected_code)
     end
 
     define_method "stub_create_#{resource}" do |expected_response = send("fake_#{resource}").to_json, expected_code = 200|
-      stub_resource_request(:create, resource, expected_response, expected_code)
+      stub_resource_request(:post, /\/v1\/#{resource.pluralize}/, expected_response, expected_code)
     end
 
     define_method "stub_find_#{resource}" do |expected_response = send("fake_#{resource}").to_json, expected_code = 200|
-      stub_resource_request(:find, resource, expected_response, expected_code)
+      stub_resource_request(:get, /\/v1\/#{resource.pluralize}\//, expected_response, expected_code)
     end
     # rubocop:enable Metrics/LineLength
   end

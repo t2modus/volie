@@ -19,7 +19,7 @@ module Volie
 
       def remove_from_queue
         response = self.class.post(
-          path: 'remove_customer_from_queue',
+          path: "campaign_customers/#{self.campaign_customer_key}/expire",
           parameters: { campaign_customer_key: self.campaign_customer_key }
         )
         response.is_a?(Hash) && response['errors'] == false
@@ -27,7 +27,7 @@ module Volie
 
       def set_customer_vehicle(make:, model:, year:, trim:, vin:, configuration: nil)
         self.class.post(
-          path: 'set_customer_vehicle',
+          path: "campaign_customers/#{self.campaign_customer_key}/customer_vehicles",
           parameters: {
             campaign_customer_key: self.campaign_customer_key,
             vehicle_make: make,
@@ -42,7 +42,7 @@ module Volie
 
       class << self
         def create(attributes, configuration = nil)
-          new post(path: 'enroll_campaign_customer', parameters: attributes, configuration: configuration)
+          new post(path: 'campaign_customers', parameters: attributes, configuration: configuration)
         end
       end
     end

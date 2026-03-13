@@ -21,7 +21,7 @@ module Volie
 
       class << self
         def find_or_create_by(attributes, configuration)
-          new post(path: 'match_or_create_sale', parameters: attributes, configuration: configuration)
+          new post(path: 'sales/match_or_create', parameters: attributes, configuration: configuration)
         end
       end
     end

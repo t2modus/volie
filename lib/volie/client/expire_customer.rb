@@ -9,8 +9,8 @@ module Volie
       # define_rest_actions :expire_customer, except: :create
 
       class << self
-        def remove(attributes, congfiguration = nil)
-          new post(path: 'remove_customer_from_queue', parameters: attributes, configuration: configuration)
+        def remove(attributes, configuration = nil)
+          new post(path: "campaign_customers/#{attributes[:campaign_customer_key]}/expire", parameters: attributes, configuration: configuration)
         end
       end
     end

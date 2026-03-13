@@ -12,7 +12,7 @@ module Volie
       define_standard_resource_tests('campaign_customer', except: :create)
 
       def test_remove_from_queue
-        stub_request(:post, /remove_customer_from_queue/).to_return(
+        stub_request(:post, /\/v1\/campaign_customers\/.*\/expire/).to_return(
           body: '{"errors": false}',
           status: 200
         )
@@ -20,7 +20,7 @@ module Volie
       end
 
       def test_remove_from_queue_returns_false_when_fails
-        stub_request(:post, /remove_customer_from_queue/).to_return(
+        stub_request(:post, /\/v1\/campaign_customers\/.*\/expire/).to_return(
           body: '{"errors": "This is an error message"}',
           status: 200 # returning a 400 because otherwise our code raises an error
         )
@@ -28,7 +28,7 @@ module Volie
       end
 
       def test_set_customer_vehicle
-        stub_request(:post, /set_customer_vehicle/).to_return(
+        stub_request(:post, /\/v1\/campaign_customers\/.*\/customer_vehicles/).to_return(
           body: FAKE_VEHICLE_RESPONSE.to_json,
           status: 200
         )
@@ -45,7 +45,7 @@ module Volie
 
       def test_can_create_a_campaign_customer
         configuration = Volie::Client::Configuration.new(access_key: "access", secret_key: "secret")
-        stub_resource_request(:enroll, :campaign_customer, FAKE_CAMPAIGN_CUSTOMER.to_json, 200)
+        stub_request(:post, /\/v1\/campaign_customers/).to_return(body: FAKE_CAMPAIGN_CUSTOMER.to_json, status: 200)
         assert_equal CampaignCustomer.new(FAKE_CAMPAIGN_CUSTOMER), CampaignCustomer.create(FAKE_CAMPAIGN_CUSTOMER, configuration)
       end
     end
