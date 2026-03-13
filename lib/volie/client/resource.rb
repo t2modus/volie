@@ -110,7 +110,7 @@ module Volie
 
           if should_define_rest_action?(:list, params)
             define_singleton_method :list do |options = {}, configuration = nil|
-              post(configuration: configuration, path: "get_#{resource_name.to_s.pluralize}", parameters: options).map(&method(:new))
+              get(configuration: configuration, path: resource_name.to_s.pluralize, parameters: options).map(&method(:new))
             end
 
             define_singleton_method :list_all_the_things do |options = {}, configuration = nil, &block|
@@ -128,7 +128,7 @@ module Volie
 
           if should_define_rest_action?(:find, params)
             define_singleton_method :find do |resource_key, configuration = nil|
-              new post(path: "find_#{resource_name}", parameters: { "#{resource_name}_key" => resource_key }, configuration: configuration)
+              new get(path: "#{resource_name.to_s.pluralize}/#{resource_key}", configuration: configuration)
             end
           end
 
@@ -136,7 +136,7 @@ module Volie
           # rubocop:disable Style/GuardClause
           if should_define_rest_action?(:create, params)
             define_singleton_method :create do |attributes, configuration = nil|
-              new post(path: "create_#{resource_name}", parameters: attributes, configuration: configuration)
+              new post(path: resource_name.to_s.pluralize, parameters: attributes, configuration: configuration)
             end
           end
           # rubocop:enable Style/GuardClause

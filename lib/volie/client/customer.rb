@@ -27,13 +27,13 @@ module Volie
       end
 
       def update(attributes = {}, configuration = nil)
-        self.class.new self.class.post(path: 'update_customer', parameters: @attributes.merge(attributes), configuration: configuration)
+        self.class.new self.class.post(path: "customers/#{self.customer_key}", parameters: @attributes.merge(attributes), configuration: configuration)
       end
 
       def destroy(configuration = nil)
         self.class.validate_configured!(configuration)
-        response = HTTP.post(
-          self.class.request_url(path: 'destroy_customer'),
+        response = HTTP.delete(
+          self.class.request_url(path: "customer/#{self.customer_key}"),
           params: { customer_key: self.customer_key }
         )
         response.code == 200 && response.body.to_s == 'OK'
@@ -41,7 +41,7 @@ module Volie
 
       class << self
         def find_or_create_by(attributes, configuration = nil)
-          new post(path: 'match_or_create_customer', parameters: attributes, configuration: configuration)
+          new post(path: 'customers/match_or_create', parameters: attributes, configuration: configuration)
         end
       end
     end

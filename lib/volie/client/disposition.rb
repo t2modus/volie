@@ -12,7 +12,7 @@ module Volie
       VALID_KEYS = %i[created_at deleted_at denotes_appointment denotes_callback denotes_contact disposition_description
                       disposition_key is_active is_complete is_default is_global is_organization_only organization_key
                       send_survey tooltip_text updated_at].freeze
-      define_rest_actions :disposition, only: :find
+      define_rest_actions :disposition, only: %i[find list]
     end
   end
 end

@@ -34,7 +34,7 @@ module Volie
 
       class << self
         def find_or_create_by(attributes, configuration = nil)
-          result = post(path: 'match_or_create_service', parameters: attributes, configuration: configuration)
+          result = post(path: 'services/match_or_create', parameters: attributes, configuration: configuration)
           result[:service_lines] ||= []
           result[:service_lines] = result[:service_lines].map(&ServiceLine.method(:new))
           new result
